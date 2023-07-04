@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherReportDAL.APIResponseModels
+namespace WeatherReportAPIProvider.APIResponseModels
 {
     internal class APIResponseWeatherReport
     {

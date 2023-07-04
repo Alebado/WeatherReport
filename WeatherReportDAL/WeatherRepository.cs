@@ -1,43 +1,43 @@
-﻿using WeatherReportDAL.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using WeatherReportDAL.EntityModels;
+using WeatherReportDAL.Interfaces;
 using WeatherReportModel;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
-using Newtonsoft.Json;
-using WeatherReportDAL.APIResponseModels;
-using AutoMapper;
 
 namespace WeatherReportDAL
 {
     public class WeatherRepository : IWeatherRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IMapper _mapper;
-        private const string apiKey = "50198f798b1612a51c30da465d84c2de";
-        public WeatherRepository(IHttpClientFactory httpClientFactory, IMapper mapper) 
+        private readonly WeatherReportContext _context;
+        public WeatherRepository(WeatherReportContext context)
         {
-            _httpClientFactory = httpClientFactory;
-            _mapper = mapper;
+            _context = context;
         }
-        public async Task<WeatherReport> GetWeatherForecastAsync(Coordinates coordinates)
+
+        public async Task<WeatherReport> GetByIdAsync(int id)
         {
-            //прикол IHttpClientFactory в том что ты создашь один инстанс этого класса и будешь юзать его по всему апликейшену
-                        
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, string.Format($"https://api.openweathermap.org/data/2.5/weather?lat={coordinates.Latitude}&lon={coordinates.Longitude}&appid={apiKey}"))
-            {
-            };
-
-            var httpClient = _httpClientFactory.CreateClient();
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
-
-            if (httpResponseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await httpResponseMessage.Content.ReadAsStringAsync();
-                var apiWeatherReportModel = JsonConvert.DeserializeObject<APIResponseWeatherReport>(responseContent);
-
-                return _mapper.Map<WeatherReport>(apiWeatherReportModel);
-            }
-            return new WeatherReport();
+            return await _context.Set<WeatherReport>().FindAsync(id);
         }
+        public async Task<WeatherReport> GetByCoordinatesAsync(Coordinates coordinates)
+        {
+            return await _context.Set<WeatherReport>().SingleOrDefaultAsync(x => x.Coordinates == coordinates);
+        }
+
+        public async Task SaveAsync(WeatherReport weatherReport)
+        {
+            await _context.Set<WeatherReport>().AddAsync(weatherReport);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(WeatherReport weatherReport)
+        {
+            _context.Entry(weatherReport).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var report = await _context.Set<WeatherReport>().FindAsync(id);
+            _context.Set<WeatherReport>().Remove(report);
+            await _context.SaveChangesAsync();
+        }       
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace WeatherReportModel
 {
-    public class WeatherReport
+    public class WeatherReport : BaseEntity
     {
-        public Coordinates Coordinates { get; set; }
-        public WeatherData WeatherData { get; set; }
-        public WeatherDescription WeatherDescription { get; set; }
+        public Coordinates Coordinates { get; set; } //
+        public WeatherData WeatherData { get; set; } //
+        public WeatherDescription WeatherDescription { get; set; } //
+        public List<City> Cities { get; set; }
         public float Visibility { get; set; }
     }
     

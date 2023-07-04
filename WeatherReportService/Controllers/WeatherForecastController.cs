@@ -4,7 +4,7 @@ using WeatherReportBL;
 using WeatherReportBL.Interface;
 using WeatherReportModel;
 
-namespace WeatherReport.Controllers
+namespace WeatherReportService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -21,7 +21,7 @@ namespace WeatherReport.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IActionResult> GetWeatherForecastAsync([FromQuery] float latitude, [FromQuery] float longitude)
         {
-            return Ok(await _weatherService.GetWeatherForecastAsync(new Coordinates() { Latitude = latitude, Longitude = longitude}));
+            return Ok(await _weatherService.GetWeatherForecastAsync(new Coordinates() { Latitude = latitude, Longitude = longitude }));
         }
     }
 }

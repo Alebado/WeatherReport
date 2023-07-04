@@ -1,8 +1,8 @@
 ﻿using WeatherReportModel;
 
-namespace WeatherReportDAL.Interface
+namespace WeatherReportAPIProvider.Interface
 {
-    public interface IWeatherRepository
+    public interface IWeatherAPIProviderRepository
     {
         public Task<WeatherReport> GetWeatherForecastAsync(Coordinates coordinates);
     }

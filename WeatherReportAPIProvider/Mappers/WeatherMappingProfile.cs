@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using WeatherReportDAL.APIResponseModels;
+using WeatherReportAPIProvider.APIResponseModels;
 using WeatherReportModel;
 
-namespace WeatherReportDAL.Mappers
+namespace WeatherReportAPIProvider.Mappers
 {
     public class WeatherMappingProfile : Profile
     {
