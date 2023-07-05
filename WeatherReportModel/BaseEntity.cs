@@ -10,6 +10,6 @@ namespace WeatherReportModel
     public class BaseEntity
     {
         [Key]
-        public int Id { get; set; } 
+        public int? Id { get; set; } 
     }
 }

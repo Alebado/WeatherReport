@@ -8,9 +8,9 @@ namespace WeatherReportModel
 {
     public class WeatherReport : BaseEntity
     {
-        public Coordinates Coordinates { get; set; } //
-        public WeatherData WeatherData { get; set; } //
-        public WeatherDescription WeatherDescription { get; set; } //
+        public Coordinates Coordinates { get; set; }
+        public WeatherData WeatherData { get; set; }
+        public WeatherDescription WeatherDescription { get; set; }
         public List<City> Cities { get; set; }
         public float Visibility { get; set; }
     }
@@ -53,10 +53,6 @@ namespace WeatherReportModel
 
     public class WeatherDescription
     {
-        /// <summary>
-        /// Weather condition id
-        /// </summary>
-        public int ID { get; set; }
         /// <summary>
         /// Group of weather parameters (Rain, Snow, Extreme etc.)
         /// </summary>

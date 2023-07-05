@@ -13,6 +13,9 @@ namespace WeatherReportAPIProvider.APIResponseModels
         public string @base { get; set; }
         public APIResponseMainData main { get; set; }
         public float visibility { get; set; }
+        public string timezone { get; set; }
+        public string name { get; set; }
+        public string cod { get; set; }
     }
     internal class APIResponseCoordinates
     {

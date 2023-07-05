@@ -32,11 +32,20 @@ namespace WeatherReportAPIProvider.Mappers
                 }))
                 .ForMember(dest => dest.WeatherDescription, opt => opt.MapFrom(src => new WeatherDescription
                 {
-                    ID = src.weather.First().id,
                     Main = src.weather.First().main,
                     Description = src.weather.First().description
                 }))
-                .ForMember(dest => dest.Visibility, opt => opt.MapFrom(src => src.visibility));
+                .ForMember(dest => dest.Cities, opt => opt.MapFrom(src => new List<City> 
+                {
+                    new City 
+                    {
+                        Cod = src.cod,
+                        Name = src.name,
+                        Timezone = src.timezone
+                    }
+                }))
+                .ForMember(dest => dest.Visibility, opt => opt.MapFrom(src => src.visibility))
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }
